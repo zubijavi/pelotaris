@@ -1,0 +1,27 @@
+/* Estilos para el main usando grid */
+main {
+  grid-area: main;
+  margin: 0 1rem;
+  /* width: 100%; */
+  min-height: 60vh; /* Mantén la altura mínima */
+  background-color: rgba(13, 14, 15, 0.664);
+  border-radius: 8px;
+  gap: 1rem; /* Espacio entre las columnas y filas */
+  justify-items: center; /* Centra los elementos en el grid horizontalmente */
+  align-items: start; /* Alinea los elementos al inicio verticalmente */
+  box-sizing: border-box;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Cambios para pantallas pequeñas */
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr; /* En pantallas pequeñas, una sola columna */
+    gap: 1rem;
+    padding: 20px;
+  }
+
+  main.shifted {
+    transform: translateY(140px); /* Ajusta el desplazamiento a tus necesidades */
+  }
+}

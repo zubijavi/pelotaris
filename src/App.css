@@ -1,0 +1,29 @@
+body{
+  background-color: rgb(31, 51, 93);  
+}
+.app{
+    display: grid;
+    grid-template-columns: 1fr 0.35fr;
+    grid-template-areas: 
+    "header header"  /* El carrusel ocupará las dos columnas */
+    "carousel carousel"
+    "main aside"
+    "main aside"
+    "footer footer";   
+    margin: 8px;
+    gap: 1rem;
+
+}
+
+@media (max-width: 768px){
+  .app{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "header"  /* El carrusel ocupará las dos columnas */
+    "carousel"
+    "main"     /* Artículo y aside ocuparán cada uno una columna */
+    "aside"
+    "footer";   
+  }
+}

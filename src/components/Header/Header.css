@@ -1,0 +1,109 @@
+/* Estilos básicos */
+.header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  /* background-color: rgb(250, 250, 250); */
+  color: rgb(250, 250, 250);
+  background-color: rgb(31, 51, 93);
+  /* color: rgb(31, 51, 93); */
+}
+
+.header img {
+  width: 30vw;
+}
+
+/* Estilos para el menú */
+.nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav ul li {
+  margin: 0 10px;
+  font-size: 1.5rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.nav ul li a {
+  color: rgb(250, 250, 250);
+
+  /* color: rgb(31, 51, 93); */
+  text-decoration: none;
+}
+
+.nav ul li:hover {
+  cursor: pointer;
+}
+
+/* Ocultar el botón de menú en pantallas grandes */
+.menu-toggle {
+  display: none;
+  font-size: 48px;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.menu-toggle.hidden {
+  display: none;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .header {
+    justify-content: space-between;
+  }
+
+  .header img {
+    width: 70vw;
+  }
+
+  .nav {
+    width: 100%;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    position: absolute;
+    margin: 0 auto;
+    top: 100px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .nav.open ul {
+    transform: translateY(0);
+  }
+
+  .nav ul li {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  color: rgb(250, 250, 250);
+    /* color: rgb(31, 51, 93); */
+    font-size: 10vw;
+  }
+
+  .menu-toggle.hidden {
+    display: none;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav.open {
+    display: block;
+  }
+}

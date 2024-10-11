@@ -1,0 +1,102 @@
+/* Admin.css */
+/* Estilo general para el panel de administración */
+.formAdmin {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem; /* Centrar el formulario */
+    padding: 20px; /* Espaciado interno */
+    background-color: #f9f9f9; /* Color de fondo */
+    border: 1px solid #ddd; /* Borde */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Títulos del formulario */
+.formAdmin h1 {
+    text-align: center; /* Centrar el título */
+}
+
+/* Estilo para las filas del formulario */
+.formulario {
+    display: flex; /* Flexbox para el diseño en filas */
+    align-items: center;
+    justify-content: space-between; /* Espacio entre las columnas */
+    gap: 2rem;
+}
+
+/* Columna de la izquierda (Fecha, Título, Descripción) */
+.formulario .left {
+    flex: 1; /* Ocupa el resto del espacio */
+}
+
+/* Columna de la derecha (Posiciones) */
+/* Estilo para los campos del formulario */
+.formAdmin input[type="date"],
+.formAdmin input[type="text"],
+.formAdmin textarea {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    margin: 10px 0; /* Espaciado superior e inferior */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Estilo para el botón de guardar */
+.botones {
+    display: flex; /* Flexbox para el botón y el input de archivo */
+    justify-content: space-between; /* Espacio entre el botón y el input */
+    align-items: center; /* Alinear verticalmente */
+}
+
+/* Estilo para el área de guardados */
+.guardados {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre eventos */
+}
+
+.guardados h2 {
+    text-align: center;
+}
+
+.evento {
+    display: flex; /* Usar flexbox para crear dos columnas */
+    gap: 20px; /* Espacio entre columnas */
+    border: 1px solid #ccc; /* Bordes para separar eventos */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    margin: 1rem;
+    align-items: center; /* Alinea verticalmente el contenido */
+}
+
+.evento-info {
+    flex: 1; /* Toma todo el espacio disponible */
+}
+
+.imagenes {
+    flex: 0 0 120px; /* Reduce el ancho de la columna de imágenes */
+    display: flex;
+    flex-direction: column; /* Apilar imágenes verticalmente */
+    gap: 10px; /* Espacio entre imágenes */
+    align-items: center; /* Centrar las imágenes */
+}
+
+.imagenes img {
+    max-width: 100px; /* Tamaño máximo para las imágenes */
+    height: auto; /* Mantener la proporción de la imagen */
+    border-radius: 5px; /* Bordes redondeados para las imágenes */
+}
+
+.botones {
+    margin-top: 10px; /* Espacio entre la información y los botones */
+    display: flex;
+    gap: 10px; /* Espacio entre botones */
+}
+
+.botones-evento {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end; /* Alinear los botones a la derecha */
+    gap: 10px; /* Espacio entre botones */
+}
+

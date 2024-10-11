@@ -1,0 +1,15 @@
+footer{
+  grid-area: footer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+    font-size: 4vw;
+}
+
+@media (max-width: 768px) {
+    footer.shifted {
+      transform: translateY(230px); /* Ajusta el desplazamiento a tus necesidades */
+    }
+  }

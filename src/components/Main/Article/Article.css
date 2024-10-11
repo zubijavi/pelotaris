@@ -1,0 +1,102 @@
+h4{
+    color: white;
+    text-align: center;
+    margin-top: 1rem;
+}
+article {
+    grid-area: main;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 1vw;
+    gap: 1vw;
+}
+article a {
+    text-decoration: none;
+    color: black;
+}
+/* Estilo de la tarjeta */
+.card {
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(31, 51, 93);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 30%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Mayor sombra para resaltar las tarjetas */
+    transition: transform 0.3s, box-shadow 0.3s; /* Efecto más fluido */
+    position: relative; /* Añadido para controlar la posición de elementos internos */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+/* Contenedor de la imagen */
+.image-container {
+    position: relative;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Imagen de la tarjeta */
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0; /* Colocar la imagen en el fondo */
+}
+
+/* Fecha */
+.card-date {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    background-color: rgba(31, 51, 93, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2; /* Aseguramos que esté encima de la imagen */
+}
+
+/* Título */
+.card-title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background-color: rgba(31, 51, 93, 0.7);
+
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    z-index: 1; /* Debajo de la fecha pero encima de la imagen */
+}
+
+/* Estilo para el contenido adicional */
+.card-content {
+    padding: 15px;
+    background-color: white;
+}
+
+@media (max-width: 768px) {
+    article {
+        flex-direction: column;
+    }
+    .card {
+        width: 100%;
+        transition: none;
+    }
+    .card:hover {
+        transform: none;
+    }
+}
