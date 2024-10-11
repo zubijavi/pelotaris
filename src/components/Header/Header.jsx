@@ -63,11 +63,7 @@ const Header = ({ toggleMenu, isMenuOpen }) => {
               Inicio
             </Link>
           </li>
-          <li>
-            <Link to="/admin" onClick={closeMenuOnLinkClick}>
-              Admin
-            </Link>
-          </li>
+
           <li onClick={openModal}>Torneos</li> {/* Cierra el menú y abre el modal */}
         </ul>
       </nav>

@@ -7,8 +7,9 @@ body{
     grid-template-areas: 
     "header header"  /* El carrusel ocupará las dos columnas */
     "carousel carousel"
-    "main aside"
-    "main aside"
+    "main main"
+    "main main"
+    "aside aside"
     "footer footer";   
     margin: 8px;
     gap: 1rem;

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../../../firebase'; // Asegúrate de importar correctamente tu configuración de Firebase
 import { doc, getDoc } from 'firebase/firestore'; // Importa las funciones necesarias de Firestore
-import './NoticiaDetalle.css'
+import './NoticiaDetalle.css';
 
 const NoticiaDetalle = () => {
     const { id } = useParams(); // Obtener el id de la URL
     const [noticia, setNoticia] = useState(null); // Estado para almacenar la noticia
     const [loading, setLoading] = useState(true); // Estado para manejar la carga
     const [error, setError] = useState(null); // Estado para manejar errores
+    const [currentImageIndex, setCurrentImageIndex] = useState(0); // Índice de la imagen actual
 
     // Función para obtener la noticia desde Firestore
     const fetchNoticia = async () => {
@@ -36,6 +37,22 @@ const NoticiaDetalle = () => {
         fetchNoticia();
     }, [id]); // Se ejecuta cada vez que cambia el id
 
+    const handleNext = () => {
+        if (noticia.imagenes && currentImageIndex < noticia.imagenes.length - 1) {
+            setCurrentImageIndex(currentImageIndex + 1);
+        } else {
+            setCurrentImageIndex(0); // Reiniciar al inicio si llega al final
+        }
+    };
+
+    const handlePrevious = () => {
+        if (noticia.imagenes && currentImageIndex > 0) {
+            setCurrentImageIndex(currentImageIndex - 1);
+        } else {
+            setCurrentImageIndex(noticia.imagenes.length - 1); // Ir al final si está en el inicio
+        }
+    };
+
     if (loading) {
         return <p>Cargando...</p>; // Mostrar mensaje de carga mientras se obtienen los datos
     }
@@ -52,19 +69,31 @@ const NoticiaDetalle = () => {
         <div className="detalle-noticia">
             <span className="detalle-fecha">{noticia.fecha}</span>
             <h2>{noticia.titulo}</h2> {/* Cambia 'evento' por 'titulo' según tu estructura */}
+
+            {/* Slider de imágenes */}
+            {noticia.imagenes && noticia.imagenes.length > 0 && (
+                <div className="slider-container">
+                    <button className="slider-button" onClick={handlePrevious}>←</button>
+                    <img
+                        className="slider-image"
+                        src={noticia.imagenes[currentImageIndex]}
+                        alt={`Imagen de noticia ${currentImageIndex + 1}`}
+                    />
+                    <button className="slider-button" onClick={handleNext}>→</button>
+                </div>
+            )}
+
             <p className="detalle-descripcion">{noticia.descripcion}</p>
-            
-            {noticia.posiciones && Object.keys(noticia.posiciones).length > 0 && 
-                // Comprobar si hay al menos un club válido
+
+            {noticia.posiciones && Object.keys(noticia.posiciones).length > 0 &&
                 Object.keys(noticia.posiciones).some((posicion) => {
                     const { club } = noticia.posiciones[posicion];
-                    return club.trim() !== ''; // Retorna true si hay al menos un club no vacío
+                    return club.trim() !== '';
                 }) ? (
                 <ul className="detalle-results">
                     <h2>Posiciones</h2>
                     {Object.keys(noticia.posiciones).map((posicion, index) => {
-                        const { club } = noticia.posiciones[posicion]; // Extraer solo el club
-                        // Solo renderizar si hay un club no vacío
+                        const { club } = noticia.posiciones[posicion];
                         if (club.trim() === '') {
                             return null; // No renderizar si no hay club
                         }
@@ -75,15 +104,8 @@ const NoticiaDetalle = () => {
                         );
                     })}
                 </ul>
-            ) : null} {/* No mostrar nada si no hay posiciones válidas */}
+            ) : null}
 
-            {noticia.imagenes && noticia.imagenes.length > 0 && ( // Acceder a las imágenes directamente desde la noticia
-                <div className="imagenes-noticia">
-                    {noticia.imagenes.map((imagen, imgIndex) => (
-                        <img key={imgIndex} src={imagen} alt={`Imagen de noticia`} style={{ width: '100px', height: 'auto', marginRight: '10px' }} />
-                    ))}
-                </div>
-            )}
         </div>
     );
 };

@@ -1,3 +1,101 @@
 .detalle-noticia {
-    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px; /* Ancho máximo para la nota */
+    border: 1px solid #ddd; /* Borde ligero para separar la nota */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+}
+
+.detalle-fecha {
+    font-size: 0.9em; /* Tamaño de fuente pequeño */
+    color: #888; /* Color gris para la fecha */
+    margin-bottom: 10px; /* Espacio inferior */
+}
+
+.detalle-noticia h2 {
+    font-size: 2em; /* Tamaño grande para el título */
+    margin: 10px 0; /* Margen superior e inferior */
+    font-weight: bold; /* Negrita */
+    color: #333; /* Color más oscuro para el título */
+}
+
+.detalle-descripcion {
+    font-size: 1.1em; /* Tamaño de fuente para el texto de la descripción */
+    line-height: 1.6; /* Espaciado entre líneas */
+    margin-bottom: 20px; /* Espacio inferior */
+    color: #555; /* Color gris oscuro para el texto */
+}
+
+.detalle-results {
+    list-style-type: none; /* Sin viñetas en la lista */
+    padding: 0; /* Sin padding en la lista */
+    margin: 20px 0; /* Margen para separar */
+}
+
+.detalle-results h2 {
+    font-size: 1.5em; /* Tamaño del título de posiciones */
+    color: #333; /* Color del título */
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+.detalle-results li {
+    font-size: 1.1em; /* Tamaño del texto de las posiciones */
+    margin: 5px 0; /* Margen entre elementos de la lista */
+}
+
+.imagenes-noticia {
+    display: flex; /* Usar flexbox para las imágenes */
+    flex-wrap: wrap; /* Permitir que las imágenes se envuelvan en múltiples líneas */
+    margin-top: 10px; /* Margen superior */
+}
+
+.imagenes-noticia img {
+    width: 100%; /* Hacer que las imágenes ocupen el 100% de su contenedor */
+    height: auto; /* Mantener la relación de aspecto */
+    margin-right: 10px; /* Margen entre imágenes */
+    border-radius: 4px; /* Bordes redondeados para las imágenes */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para las imágenes */
+}
+.slider-container {
+    display: flex;
+    justify-content: center; /* Centra el slider */
+    align-items: center; /* Alinea verticalmente */
+    margin: 20px 0; /* Margen superior e inferior */
+}
+
+.slider-image {
+    max-width: 80%; /* Limitar el ancho de la imagen */
+    height: 30vw; /* Mantener la relación de aspecto */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+.slider-button {
+    background-color: #007BFF; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    font-size: 18px; /* Tamaño de fuente */
+    margin: 0 10px; /* Margen lateral */
+}
+
+.slider-button:hover {
+    background-color: #0056b3; /* Color al pasar el cursor */
+}
+
+
+/* Estilo para pantallas más pequeñas */
+@media (max-width: 600px) {
+    .detalle-noticia {
+        padding: 15px; /* Menos padding en móviles */
+    }
+
+    .detalle-noticia h2 {
+        font-size: 1.5em; /* Reducir tamaño del título en móviles */
+    }
 }
