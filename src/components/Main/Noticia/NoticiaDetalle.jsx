@@ -66,47 +66,49 @@ const NoticiaDetalle = () => {
     }
 
     return (
-        <div className="detalle-noticia">
-            <span className="detalle-fecha">{noticia.fecha}</span>
-            <h2>{noticia.titulo}</h2> {/* Cambia 'evento' por 'titulo' según tu estructura */}
+        <main>
+            <div className="detalle-noticia">
+                <span className="detalle-fecha">{noticia.fecha}</span>
+                <h2>{noticia.titulo}</h2> {/* Cambia 'evento' por 'titulo' según tu estructura */}
 
-            {/* Slider de imágenes */}
-            {noticia.imagenes && noticia.imagenes.length > 0 && (
-                <div className="slider-container">
-                    <button className="slider-button" onClick={handlePrevious}>←</button>
-                    <img
-                        className="slider-image"
-                        src={noticia.imagenes[currentImageIndex]}
-                        alt={`Imagen de noticia ${currentImageIndex + 1}`}
-                    />
-                    <button className="slider-button" onClick={handleNext}>→</button>
-                </div>
-            )}
+                {/* Slider de imágenes */}
+                {noticia.imagenes && noticia.imagenes.length > 0 && (
+                    <div className="slider-container">
+                        <button className="slider-button" onClick={handlePrevious}>←</button>
+                        <img
+                            className="slider-image"
+                            src={noticia.imagenes[currentImageIndex]}
+                            alt={`Imagen de noticia ${currentImageIndex + 1}`}
+                        />
+                        <button className="slider-button" onClick={handleNext}>→</button>
+                    </div>
+                )}
 
-            <p className="detalle-descripcion">{noticia.descripcion}</p>
+                <p className="detalle-descripcion">{noticia.descripcion}</p>
 
-            {noticia.posiciones && Object.keys(noticia.posiciones).length > 0 &&
-                Object.keys(noticia.posiciones).some((posicion) => {
-                    const { club } = noticia.posiciones[posicion];
-                    return club.trim() !== '';
-                }) ? (
-                <ul className="detalle-results">
-                    <h2>Posiciones</h2>
-                    {Object.keys(noticia.posiciones).map((posicion, index) => {
+                {noticia.posiciones && Object.keys(noticia.posiciones).length > 0 &&
+                    Object.keys(noticia.posiciones).some((posicion) => {
                         const { club } = noticia.posiciones[posicion];
-                        if (club.trim() === '') {
-                            return null; // No renderizar si no hay club
-                        }
-                        return (
-                            <li key={index}>
-                                <strong>{index + 1}°</strong> {club}
-                            </li>
-                        );
-                    })}
-                </ul>
-            ) : null}
+                        return club.trim() !== '';
+                    }) ? (
+                    <ul className="detalle-results">
+                        <h2>Posiciones</h2>
+                        {Object.keys(noticia.posiciones).map((posicion, index) => {
+                            const { club } = noticia.posiciones[posicion];
+                            if (club.trim() === '') {
+                                return null; // No renderizar si no hay club
+                            }
+                            return (
+                                <li key={index}>
+                                    <strong>{index + 1}°</strong> {club}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                ) : null}
 
-        </div>
+            </div>
+        </main>
     );
 };
 
