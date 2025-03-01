@@ -7,10 +7,17 @@
   padding: 10px 20px;
   color: rgb(250, 250, 250);
   background-color: rgb(31, 51, 93);
+  position: fixed; /* Fija el header en la parte superior */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999; /* Asegura que el header esté sobre otros elementos */
+  height: 5vw;
 }
 
-.header img {
-  width: 30vw;
+/* Agregar espacio para el resto del contenido */
+body {
+  padding-top: 70px; /* Ajusta según la altura de tu header */
 }
 
 /* Estilos para el menú */
@@ -30,6 +37,7 @@
 .nav ul li a {
   color: rgb(250, 250, 250);
   text-decoration: none;
+  font-family: raleway;
 }
 
 .nav ul li:hover {
@@ -53,6 +61,7 @@
 @media (max-width: 768px) {
   .header {
     justify-content: space-between;
+    height: 15vw;
   }
 
   .header img {
@@ -88,7 +97,6 @@
     text-align: center;
     font-size: 8vw;
     margin: 10px 0;
-    font-family: raleway;
   }
 
   .menu-toggle {
