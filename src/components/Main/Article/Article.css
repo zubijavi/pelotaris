@@ -1,56 +1,44 @@
-h4{
-    color: white;
-    text-align: center;
-    margin-top: 1rem;
-}
 article {
-    grid-area: main;
+    width: 90%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
     padding: 1vw;
-    gap: 1vw;
-}
-article a {
-    text-decoration: none;
-    color: black;
-}
-/* Estilo de la tarjeta */
-.card {
-    border: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(31, 51, 93);
-    border-radius: 8px;
-    overflow: hidden;
-    width: 30%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Mayor sombra para resaltar las tarjetas */
-    transition: transform 0.3s, box-shadow 0.3s; /* Efecto más fluido */
-    position: relative; /* Añadido para controlar la posición de elementos internos */
+    gap: 20px; /* Más espacio entre tarjetas */
 }
 
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+/* Estilos de la tarjeta */
+.card {
+    background-color: rgb(113, 113, 112);
+    text-decoration: none;
+    width: 20vw; /* Tamaño fijo para uniformidad */
+    height: 20vw;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 2vw;
+    position: relative;
 }
 
 /* Contenedor de la imagen */
 .image-container {
-    position: relative;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    width: 100%;
+    height: 90%;
+    /* overflow: hidden; */
+    border-radius: 10px;
 }
 
-/* Imagen de la tarjeta */
+/* Imagen dentro de la tarjeta */
 .card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0; /* Colocar la imagen en el fondo */
+    border-radius: 5px;
 }
 
 /* Fecha */
@@ -59,42 +47,57 @@ article a {
     top: 10px;
     right: 10px;
     color: white;
-    background-color: rgba(31, 51, 93, 0.7);
+    background-color: rgba(31, 51, 93, 0.8);
     padding: 5px 10px;
     border-radius: 5px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: bold;
-    z-index: 2; /* Aseguramos que esté encima de la imagen */
+    z-index: 2;
+    text-transform: uppercase;
 }
 
 /* Título */
 .card-title {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    color: white;
-    background-color: rgba(31, 51, 93, 0.7);
-
-    padding: 10px 15px;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    z-index: 1; /* Debajo de la fecha pero encima de la imagen */
+    margin-top: 10px;
 }
 
-/* Estilo para el contenido adicional */
-.card-content {
-    padding: 15px;
-    background-color: white;
+/* Selector de año */
+.year-selector {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    color: wheat;
 }
 
+.year-selector label {
+    margin-right: 10px;
+}
+
+.year-selector select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+/* Media Query para pantallas pequeñas */
 @media (max-width: 768px) {
+    article {
+        justify-content: center;
+    }
 
     .card {
-        width: 45%;
-        transition: none;
+        width: 90%;
+        height: auto;
+        padding: 15px;
     }
-    .card:hover {
-        transform: none;
+
+    .image-container {
+        height: 200px;
+    }
+
+    .card-title {
+        font-size: 1rem;
     }
 }

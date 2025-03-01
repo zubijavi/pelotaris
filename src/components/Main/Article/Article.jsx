@@ -1,35 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { db } from '../../../firebase'; // Asegúrate de importar correctamente tu configuración de Firebase
-import { collection, getDocs } from 'firebase/firestore'; // Importar las funciones necesarias de Firestore
-import './Article.css'; // Importar los estilos
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { db } from "../../../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import "./Article.css";
 
 const Article = () => {
-    // Estado para almacenar los eventos obtenidos de Firestore
     const [eventos, setEventos] = useState([]);
+    const [eventos2025, setEventos2025] = useState([]);
+    const [añosDisponibles, setAñosDisponibles] = useState([]);
+    const [eventoSeleccionado, setEventoSeleccionado] = useState("");
+    const navigate = useNavigate();
 
     // Función para formatear la fecha como día/mes/año
     const formatFecha = (fechaString) => {
         const fecha = new Date(fechaString);
-        const dia = String(fecha.getDate()).padStart(2, '0'); // Añadir un 0 si el día tiene solo un dígito
-        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11, por eso sumamos 1
+        const dia = String(fecha.getDate() + 1).padStart(2, "0");
+        const mes = String(fecha.getMonth() + 1).padStart(2, "0");
         const año = fecha.getFullYear();
-        return `${dia}/${mes}/${año}`; // Formato día/mes/año
+        return `${dia}/${mes}/${año}`;
     };
 
-    // Función para obtener los eventos desde Firestore
+    // Función para obtener eventos desde Firestore
     const fetchEventos = async () => {
         try {
-            const querySnapshot = await getDocs(collection(db, 'eventos')); // 'eventos' es el nombre de la colección en Firestore
-            const eventosArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Formatear los datos
-            
-            // Ordenar los eventos por fecha (más recientes primero)
-            eventosArray.sort((a, b) => new Date(b.fecha) - new Date(a.fecha)); // Asegúrate de que 'fecha' sea un string ISO o un formato de fecha válido
-            
-            setEventos(eventosArray); // Actualizar el estado con los eventos ordenados
-            
+            const querySnapshot = await getDocs(collection(db, "eventos"));
+            const eventosArray = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+
+            // Ordenar eventos por fecha (más recientes primero)
+            eventosArray.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+            // Filtrar eventos de 2025
+            const eventos2025 = eventosArray.filter(
+                (evento) => new Date(evento.fecha).getFullYear() === 2025
+            );
+
+            // Extraer años disponibles de eventos anteriores
+            const añosUnicos = [
+                ...new Set(
+                    eventosArray
+                        .map((evento) => new Date(evento.fecha).getFullYear())
+                        .filter((year) => year < 2025) // Solo años anteriores
+                ),
+            ];
+
+            setEventos(eventosArray);
+            setEventos2025(eventos2025);
+            setAñosDisponibles(añosUnicos);
         } catch (error) {
-            console.error('Error al obtener los eventos: ', error);
+            console.error("Error al obtener los eventos: ", error);
         }
     };
 
@@ -38,30 +59,59 @@ const Article = () => {
         fetchEventos();
     }, []);
 
+    // Manejar el cambio de selección y redirigir a la página del evento
+    const handleChange = (e) => {
+        const eventoId = e.target.value;
+        setEventoSeleccionado(eventoId);
+
+        if (eventoId) {
+            navigate(`/noticia/${eventoId}`); // Redirige a la página del evento
+        }
+    };
+
     return (
         <>
-        <article>
-            {eventos.length > 0 ? (
-                eventos.map((evento) => (
-                    <Link to={`/noticia/${evento.id}`} key={evento.id} className="card"> {/* Usar Link para la navegación */}
-                        <span className="card-date">{formatFecha(evento.fecha)}</span> {/* Formatear la fecha */}
-                        <div className="image-container">
-                            {/* Mostrar la primera imagen de las imágenes disponibles */}
-                            {evento.imagenes && evento.imagenes.length > 0 && (
-                                <img 
-                                    src={evento.imagenes[0]} 
-                                    alt={`Imagen de ${evento.titulo}`} // Cambia 'evento.evento' a 'evento.titulo' para mayor claridad
-                                    className="card-image" 
-                                />
-                            )}
-                            <h3 className="card-title">{evento.titulo}</h3> {/* Cambia 'evento.evento' a 'evento.titulo' */}
-                        </div>
-                    </Link>
-                ))
-            ) : (
-                <p>Cargando eventos...</p> // Mensaje de carga mientras se obtienen los eventos
-            )}
-        </article>
+            {/* Sección de tarjetas para eventos de 2025 */}
+            <article>
+                {eventos2025.length > 0 ? (
+                    eventos2025.map((evento) => (
+                        <Link to={`/noticia/${evento.id}`} key={evento.id} className="card">
+                            <span className="card-date">{formatFecha(evento.fecha)}</span>
+                            <div className="image-container">
+                                {evento.imagenes && evento.imagenes.length > 0 && (
+                                    <img
+                                        src={evento.imagenes[0]}
+                                        alt={`Imagen de ${evento.titulo}`}
+                                        className="card-image"
+                                    />
+                                )}
+                                <h3 className="card-title">{evento.titulo}</h3>
+                            </div>
+                        </Link>
+                    ))
+                ) : (
+                    <p>No hay eventos para 2025.</p>
+                )}
+            </article>
+
+            {/* Selector de eventos de años anteriores */}
+            <div className="year-selector">
+                <label htmlFor="year">Noticias Anteriores</label>
+                <select id="year" value={eventoSeleccionado} onChange={handleChange}>
+                    <option value="">Selecciona un evento</option>
+                    {añosDisponibles.map((year) => (
+                        <optgroup label={year} key={year}>
+                            {eventos
+                                .filter((evento) => new Date(evento.fecha).getFullYear() === year)
+                                .map((evento) => (
+                                    <option key={evento.id} value={evento.id}>
+                                        {evento.titulo}
+                                    </option>
+                                ))}
+                        </optgroup>
+                    ))}
+                </select>
+            </div>
         </>
     );
 };

@@ -1,14 +1,11 @@
-// src/App.jsx
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Importar Router, Routes y Route
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Footer from './components/Footer/Footer';
-import Admin from './components/Admin/Admin'
+import Admin from './components/Admin/Admin';
 import NoticiaDetalle from './components/Main/Noticia/NoticiaDetalle';
 import './App.css';
-import Carousel from './components/Carousel/Carousel';
-import Aside from './components/Aside/Aside';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,13 +19,11 @@ const App = () => {
       <Router>
         <Header toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
         <Routes>
-          <Route path="/" element={<Main isShifted={isMenuOpen} />} />
+          <Route path="*" element={<Main isShifted={isMenuOpen} />} />
           <Route path="/admin" element={<Admin isShifted={isMenuOpen} />} />
-
           <Route path='/noticia/:id' element={<NoticiaDetalle isShifted={isMenuOpen} />} />
+          <Route path="*" element={<h1>404 - Página no encontrada</h1>} /> {/* Agrega esto */}
         </Routes>
-        <Carousel isShifted={isMenuOpen} />
-        <Aside isShifted={isMenuOpen} />
         <Footer isShifted={isMenuOpen} />
       </Router>
     </div>
@@ -36,6 +31,3 @@ const App = () => {
 };
 
 export default App;
-
-
-{/* <Route path="/noticia/:id" element={<NoticiaDetalle isShifted={isMenuOpen}/>} /> */ }

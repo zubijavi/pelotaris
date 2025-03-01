@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db, storage } from '../../firebase'; // Importar Firestore y Storage
-import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore'; // Para Firestore
+import { collection, getDocs, orderBy, query, doc, updateDoc, addDoc, deleteDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'; // Para Storage
 import './Admin.css';
 
@@ -14,6 +14,7 @@ const Admin = () => {
   const [editandoEvento, setEditandoEvento] = useState(null); // Estado para el evento en edición
   const [loading, setLoading] = useState(false); // Estado de carga
   const [loadingDelete, setLoadingDelete] = useState(false); // Estado de carga para eliminar
+  const [modalAbierto, setModalAbierto] = useState(false); // Estado para controlar la visibilidad del modal
 
   const handleChange = (e, index) => {
     const updatedPosiciones = [...posiciones];
@@ -74,6 +75,7 @@ const Admin = () => {
       }
       fetchEventos(); // Actualizar los eventos después de guardar o actualizar
       resetForm(); // Reiniciar el formulario
+      setModalAbierto(false); // Cerrar el modal después de guardar
     } catch (e) {
       console.error('Error al guardar el evento: ', e);
       alert('Hubo un error al guardar el evento');
@@ -84,9 +86,12 @@ const Admin = () => {
 
   const fetchEventos = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'eventos'));
+      const eventosRef = collection(db, 'eventos');
+      const q = query(eventosRef, orderBy('fecha', 'desc')); // Ordena por la fecha de manera ascendente
+
+      const querySnapshot = await getDocs(q); // Ejecuta la consulta ordenada
       const eventosArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setEventos(eventosArray);
+      setEventos(eventosArray); // Actualiza el estado con los eventos ordenados
     } catch (error) {
       console.error('Error al obtener los eventos: ', error);
     }
@@ -120,6 +125,7 @@ const Admin = () => {
     setPosiciones(evento.posiciones.map(pos => ({ club: pos.club }))); // Solo extraer el club
     setImagenes([]); // Limpiar imágenes para evitar confusión
     setEditandoEvento(evento.id); // Establecer el ID del evento a editar
+    setModalAbierto(true); // Abrir modal en edición
   };
 
   const handleDeleteImage = async (imgURL, eventoId) => {
@@ -169,84 +175,100 @@ const Admin = () => {
 
   return (
     <>
-    <main>
-      {loading && <p>Por favor, espera mientras se procesa la solicitud...</p>} {/* Mensaje de carga */}
-      {loadingDelete && <p>Por favor, espera mientras se elimina el evento...</p>} {/* Mensaje de carga para eliminar */}
-      <div className='formAdmin'>
-        <h1>Admin Panel - {editandoEvento ? 'Editar Evento' : 'Crear Evento'}</h1>
-        <form onSubmit={handleSubmit}>
-          <div className='formulario'>
-            <div className='left'>
-              <div>
-                <label>Fecha:</label>
-                <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} required />
-              </div>
-              <div>
-                <label>Título:</label>
-                <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
-              </div>
-              <div>
-                <label>Descripción:</label>
-                <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required />
-              </div>
-            </div>
+      <main>
+        <div className='admin-container'>
+          {loading && <p>Por favor, espera mientras se procesa la solicitud...</p>} {/* Mensaje de carga */}
+          {loadingDelete && <p>Por favor, espera mientras se elimina el evento...</p>} {/* Mensaje de carga para eliminar */}
+          <div className='formAdmin'>
+            <button onClick={() => { resetForm(); setModalAbierto(true); }}>Agregar Evento</button> {/* Botón para abrir el modal */}
+            {modalAbierto && (
+              <div className="modal">
+                <div className="modal-content">
+                  <button className="close" onClick={() => setModalAbierto(false)}>X</button> {/* Botón de cierre */}
+                  <h1>{editandoEvento ? 'Editar Evento' : 'Agregar Evento'}</h1>
+                  <form onSubmit={handleSubmit}>
+                    <div className='formulario'>
+                      <div className='left'>
+                        <div>
+                          <label>Fecha:</label>
+                          <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} required />
+                        </div>
+                        <div>
+                          <label>Título:</label>
+                          <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
+                        </div>
+                        <div>
+                          <label>Descripción:</label>
+                          <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required />
+                        </div>
+                      </div>
 
-            <div className='right'>
-              {posiciones.map((pos, index) => (
-                <div key={index}>
-                  <h2>Posición {index + 1}</h2>
-                  <div>
-                    <label>Club:</label>
-                    <input type="text" value={pos.club} onChange={(e) => handleChange(e, index)} />
-                  </div>
+                      <div className='right'>
+                        {posiciones.map((pos, index) => (
+                          <div key={index}>
+                            <h2>Posición {index + 1}</h2>
+                            <div>
+                              <label>Club:</label>
+                              <input type="text" value={pos.club} onChange={(e) => handleChange(e, index)} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className='botones'>
+                      <div>
+                        <label>Imágenes del Evento:</label>
+                        <input type="file" multiple onChange={handleFileChange} />
+                      </div>
+
+                      {editandoEvento && (
+                        <div className='imagenes-evento'>
+                          {eventos.find(evt => evt.id === editandoEvento)?.imagenes?.map((img, idx) => (
+                            <div key={idx} className="imagen-thumbnail">
+                              <img src={img} alt={`Evento ${idx + 1}`} />
+                              <button onClick={() => handleDeleteImage(img, editandoEvento)}>Eliminar Imagen</button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      <button type="submit">
+                        {loading ? 'Guardando...' : editandoEvento ? 'Actualizar Evento' : 'Guardar Evento'}
+                      </button>
+                    </div>
+                  </form>
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
           </div>
 
-          <div className='botones'>
-            <div>
-              <label>Imágenes del Evento:</label>
-              <input type="file" multiple onChange={handleFileChange} />
-            </div>
+          <div className='admin-list'>
+            <table className="evento-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Título</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {eventos.map((evento) => (
+                  <tr key={evento.id}>
+                    <td>{evento.fecha}</td>
+                    <td>{evento.titulo}</td>
+                    <td>
+                      <button className="edit-btn" onClick={() => handleEdit(evento)}>Editar</button>
+                      <button className="delete-btn" onClick={() => handleDelete(evento.id)}>Eliminar</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
-            <button type="submit" disabled={loading}>
-              {loading ? 'Cargando...' : editandoEvento ? 'Actualizar Evento' : 'Guardar Evento'}
-            </button>
           </div>
-        </form>
-
-        {/* Mostrar lista de eventos */}
-        {eventos.map((evento) => (
-          <div key={evento.id} className='evento'>
-            <h2>{evento.titulo} - {evento.fecha}</h2>
-            <p>{evento.descripcion}</p>
-
-            <h3>Posiciones:</h3>
-            <ol>
-              {evento.posiciones.map((pos, index) => (
-                <li key={index}>{pos.club}</li>
-              ))}
-            </ol>
-
-            <h3>Imágenes:</h3>
-            <div className='imagenes'>
-              {evento.imagenes.map((imgURL, index) => (
-                <div key={index} className='imagen-container'>
-                  <img src={imgURL} alt={`Imagen ${index + 1}`} />
-                  <button onClick={() => handleDeleteImage(imgURL, evento.id)}>Eliminar Imagen</button>
-                </div>
-              ))}
-            </div>
-
-            <div className='botones-evento'>
-              <button onClick={() => handleEdit(evento)}>Editar Evento</button>
-              <button onClick={() => handleDelete(evento.id)}>Eliminar Evento</button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </main>
+        </div>
+      </main>
     </>
   );
 };

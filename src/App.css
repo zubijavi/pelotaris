@@ -3,14 +3,11 @@ body{
 }
 .app{
     display: grid;
-    grid-template-columns: 1fr 0.35fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: 
-    "header header"  /* El carrusel ocupará las dos columnas */
-    "carousel carousel"
-    "main main"
-    "main main"
-    "aside aside"
-    "footer footer";   
+    "header header header"  /* El carrusel ocupará las dos columnas */
+    "main main main"
+    "footer footer footer";   
     margin: 8px;
     gap: 1rem;
 

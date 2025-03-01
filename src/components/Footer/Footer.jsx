@@ -6,10 +6,8 @@ import logo from '../../assets/LogoAzul.png'
 const Footer = ({ isShifted }) => {
   return (
     <footer className={isShifted ? 'shifted' : ''}>
-      <Link to="/admin">
-        <img src={logo} alt="" />
-      </Link>
-
+        {/* <img src={logo} alt="" /> */}
+        <p>Todos los derechos reservados</p>
     </footer>
   );
 };
