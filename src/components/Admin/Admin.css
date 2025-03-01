@@ -162,6 +162,9 @@
     width: 80%;
     max-width: 600px;
 }
+.imagenes-evento img{
+    width: 5vw;
+}
 
 .close {
     position: absolute;
@@ -242,4 +245,23 @@
   .delete-btn:hover {
     background-color: #c82333;
   }
-  
+  /* Ajustar la tabla en resoluciones menores a 768px */
+@media (max-width: 768px) {
+    .admin-list .evento-table {
+        width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+        overflow-x: auto; /* Agrega desplazamiento horizontal si el contenido es más ancho que la pantalla */
+    }
+
+    .evento-table th, .evento-table td {
+        padding: 8px; /* Reducir el padding para que los elementos quepan mejor */
+        font-size: 12px; /* Reducir el tamaño de la fuente */
+    }
+
+    .evento-table th {
+        font-size: 14px; /* Mantener un tamaño de fuente un poco mayor para los encabezados */
+    }
+
+    .admin-list {
+        padding: 10px; /* Reducir el padding del contenedor */
+    }
+}

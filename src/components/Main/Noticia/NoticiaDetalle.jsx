@@ -9,7 +9,6 @@ const NoticiaDetalle = () => {
     const [noticia, setNoticia] = useState(null); // Estado para almacenar la noticia
     const [loading, setLoading] = useState(true); // Estado para manejar la carga
     const [error, setError] = useState(null); // Estado para manejar errores
-    const [currentImageIndex, setCurrentImageIndex] = useState(0); // Índice de la imagen actual
 
     // Función para obtener la noticia desde Firestore
     const fetchNoticia = async () => {
@@ -37,22 +36,6 @@ const NoticiaDetalle = () => {
         fetchNoticia();
     }, [id]); // Se ejecuta cada vez que cambia el id
 
-    const handleNext = () => {
-        if (noticia.imagenes && currentImageIndex < noticia.imagenes.length - 1) {
-            setCurrentImageIndex(currentImageIndex + 1);
-        } else {
-            setCurrentImageIndex(0); // Reiniciar al inicio si llega al final
-        }
-    };
-
-    const handlePrevious = () => {
-        if (noticia.imagenes && currentImageIndex > 0) {
-            setCurrentImageIndex(currentImageIndex - 1);
-        } else {
-            setCurrentImageIndex(noticia.imagenes.length - 1); // Ir al final si está en el inicio
-        }
-    };
-
     if (loading) {
         return <p>Cargando...</p>; // Mostrar mensaje de carga mientras se obtienen los datos
     }
@@ -71,18 +54,7 @@ const NoticiaDetalle = () => {
                 <span className="detalle-fecha">{noticia.fecha}</span>
                 <h2>{noticia.titulo}</h2> {/* Cambia 'evento' por 'titulo' según tu estructura */}
 
-                {/* Slider de imágenes */}
-                {noticia.imagenes && noticia.imagenes.length > 0 && (
-                    <div className="slider-container">
-                        <button className="slider-button" onClick={handlePrevious}>←</button>
-                        <img
-                            className="slider-image"
-                            src={noticia.imagenes[currentImageIndex]}
-                            alt={`Imagen de noticia ${currentImageIndex + 1}`}
-                        />
-                        <button className="slider-button" onClick={handleNext}>→</button>
-                    </div>
-                )}
+
 
                 <p className="detalle-descripcion">{noticia.descripcion}</p>
 
@@ -105,7 +77,22 @@ const NoticiaDetalle = () => {
                             );
                         })}
                     </ul>
+
                 ) : null}
+                {/* Mostrar imagen principal */}
+                {/* Mostrar todas las imágenes */}
+                {noticia.imagenes && noticia.imagenes.length > 0 && (
+                    <div className="detalle-imagenes">
+                        {noticia.imagenes.map((imagen, index) => (
+                            <img
+                                key={index}
+                                className="detalle-imagen"
+                                src={imagen}
+                                alt={`Imagen ${index + 1} de la noticia`}
+                            />
+                        ))}
+                    </div>
+                )}
 
             </div>
         </main>

@@ -73,25 +73,27 @@ const Article = () => {
         <>
             {/* Sección de tarjetas para eventos de 2025 */}
             <article>
-                {eventos2025.length > 0 ? (
-                    eventos2025.map((evento) => (
-                        <Link to={`/noticia/${evento.id}`} key={evento.id} className="card">
-                            <span className="card-date">{formatFecha(evento.fecha)}</span>
-                            <div className="image-container">
-                                {evento.imagenes && evento.imagenes.length > 0 && (
-                                    <img
-                                        src={evento.imagenes[0]}
-                                        alt={`Imagen de ${evento.titulo}`}
-                                        className="card-image"
-                                    />
-                                )}
-                                <h3 className="card-title">{evento.titulo}</h3>
-                            </div>
-                        </Link>
-                    ))
-                ) : (
-                    <p>No hay eventos para 2025.</p>
-                )}
+                <div className="cards">
+                    {eventos2025.length > 0 ? (
+                        eventos2025.map((evento) => (
+                            <Link to={`/noticia/${evento.id}`} key={evento.id} className="card">
+                                <span className="card-date">{formatFecha(evento.fecha)}</span>
+                                <div className="image-container">
+                                    {evento.imagenes && evento.imagenes.length > 0 && (
+                                        <img
+                                            src={evento.imagenes[0]}
+                                            alt={`Imagen de ${evento.titulo}`}
+                                            className="card-image"
+                                        />
+                                    )}
+                                    <h3 className="card-title">{evento.titulo}</h3>
+                                </div>
+                            </Link>
+                        ))
+                    ) : (
+                        <p>No hay eventos para 2025.</p>
+                    )}
+                </div>
             </article>
 
             {/* Selector de eventos de años anteriores */}

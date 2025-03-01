@@ -2,16 +2,21 @@ article {
     width: 90%;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     padding: 1vw;
-    gap: 20px; /* Más espacio entre tarjetas */
+    margin-bottom: 20px; /* Espacio adicional en la parte inferior */
+}
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1vw;
 }
 
 /* Estilos de la tarjeta */
 .card {
     background-color: rgb(113, 113, 112);
     text-decoration: none;
-    width: 20vw; /* Tamaño fijo para uniformidad */
+    width: 40%; /* Tamaño fijo para uniformidad */
     height: 20vw;
     color: white;
     padding: 10px;
@@ -37,7 +42,7 @@ article {
 .card-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit:fill;
     border-radius: 5px;
 }
 

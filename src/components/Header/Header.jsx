@@ -1,26 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Modal from '../Modal/Modal';
 import '../Header/Header.css';
 import logo from '../../assets/LogoAzul.png';
 import { db } from '../../firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
 
 const Header = ({ toggleMenu, isMenuOpen }) => {
-  const [isModalOpen, setModalOpen] = useState(false);
   const [eventos, setEventos] = useState([]);
-
-  const openModal = () => {
-    setModalOpen(true);
-    toggleMenu(); // Cierra el menú desplegable al abrir el modal
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const menuRef = useRef(null);  // Referencia para el menú
 
   const closeMenuOnLinkClick = () => {
-    toggleMenu();
+    toggleMenu();  // Cerrar el menú al hacer clic en un enlace
   };
 
   const fetchEventos = () => {
@@ -45,8 +35,21 @@ const Header = ({ toggleMenu, isMenuOpen }) => {
 
   useEffect(() => {
     const unsubscribe = fetchEventos();
-    return () => unsubscribe();
-  }, []);
+
+    // Cerrar el menú al hacer clic fuera de él si está abierto
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target)) {
+        toggleMenu(); // Solo cerrar el menú si está abierto
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      unsubscribe();
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [toggleMenu, isMenuOpen]);  // Se agregó isMenuOpen a la lista de dependencias
 
   return (
     <header className="header">
@@ -56,7 +59,7 @@ const Header = ({ toggleMenu, isMenuOpen }) => {
       <button className={`menu-toggle ${isMenuOpen ? 'hidden' : ''}`} onClick={toggleMenu}>
         ☰
       </button>
-      <nav className={isMenuOpen ? 'nav open' : 'nav'}>
+      <nav className={isMenuOpen ? 'nav open' : 'nav'} ref={menuRef}>
         <ul>
           <li>
             <Link to="/" onClick={closeMenuOnLinkClick}>
@@ -68,12 +71,8 @@ const Header = ({ toggleMenu, isMenuOpen }) => {
               Admin
             </Link>
           </li>
-
-          <li onClick={openModal}>Torneos</li> {/* Cierra el menú y abre el modal */}
         </ul>
       </nav>
-
-      <Modal isOpen={isModalOpen} onClose={closeModal} eventos={eventos} />
     </header>
   );
 };

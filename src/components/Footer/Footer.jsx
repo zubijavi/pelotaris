@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import './Footer.css'; // Asegúrate de que la ruta es correcta
 import logo from '../../assets/LogoAzul.png'
 
-const Footer = ({ isShifted }) => {
+const Footer = () => {
   return (
-    <footer className={isShifted ? 'shifted' : ''}>
+    <footer>
         {/* <img src={logo} alt="" /> */}
         <p>Todos los derechos reservados</p>
     </footer>
