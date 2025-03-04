@@ -10,14 +10,15 @@ article {
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 1vw;
+    /* padding: 5vw; */
 }
 
 /* Estilos de la tarjeta */
 .card {
     background-color: rgb(113, 113, 112);
     text-decoration: none;
-    width: 40%; /* Tamaño fijo para uniformidad */
     height: 20vw;
+    width: 35vw;
     color: white;
     padding: 10px;
     border-radius: 10px;

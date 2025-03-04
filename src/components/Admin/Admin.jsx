@@ -3,24 +3,19 @@ import { db, storage } from '../../firebase'; // Importar Firestore y Storage
 import { collection, getDocs, orderBy, query, doc, updateDoc, addDoc, deleteDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'; // Para Storage
 import './Admin.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const Admin = () => {
   const [fecha, setFecha] = useState('');
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [posiciones, setPosiciones] = useState([{ club: '' }, { club: '' }, { club: '' }]); // Solo club
   const [imagenes, setImagenes] = useState([]);
   const [eventos, setEventos] = useState([]);
   const [editandoEvento, setEditandoEvento] = useState(null); // Estado para el evento en edición
   const [loading, setLoading] = useState(false); // Estado de carga
   const [loadingDelete, setLoadingDelete] = useState(false); // Estado de carga para eliminar
   const [modalAbierto, setModalAbierto] = useState(false); // Estado para controlar la visibilidad del modal
-
-  const handleChange = (e, index) => {
-    const updatedPosiciones = [...posiciones];
-    updatedPosiciones[index].club = e.target.value; // Solo actualizar el club
-    setPosiciones(updatedPosiciones);
-  };
 
   const handleFileChange = (e) => {
     setImagenes([...e.target.files]);
@@ -55,9 +50,6 @@ const Admin = () => {
       fecha,
       titulo,
       descripcion,
-      posiciones: posiciones.map((pos) => ({
-        club: pos.club
-      })),
       imagenes: editandoEvento
         ? [...eventos.find(evento => evento.id === editandoEvento).imagenes, ...imagenesURLs] // Mantener imágenes existentes y agregar nuevas
         : imagenesURLs // Si no está editando, usar solo las nuevas imágenes
@@ -122,7 +114,6 @@ const Admin = () => {
     setFecha(evento.fecha);
     setTitulo(evento.titulo);
     setDescripcion(evento.descripcion);
-    setPosiciones(evento.posiciones.map(pos => ({ club: pos.club }))); // Solo extraer el club
     setImagenes([]); // Limpiar imágenes para evitar confusión
     setEditandoEvento(evento.id); // Establecer el ID del evento a editar
     setModalAbierto(true); // Abrir modal en edición
@@ -164,7 +155,6 @@ const Admin = () => {
     setFecha('');
     setTitulo('');
     setDescripcion('');
-    setPosiciones([{ club: '' }, { club: '' }, { club: '' }]); // Reiniciar solo club
     setImagenes([]);
     setEditandoEvento(null); // Resetear el estado de edición
   };
@@ -199,20 +189,8 @@ const Admin = () => {
                         </div>
                         <div>
                           <label>Descripción:</label>
-                          <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required />
+                          <ReactQuill value={descripcion} onChange={setDescripcion} required /> {/* ReactQuill para descripción */}
                         </div>
-                      </div>
-
-                      <div className='right'>
-                        {posiciones.map((pos, index) => (
-                          <div key={index}>
-                            <h2>Posición {index + 1}</h2>
-                            <div>
-                              <label>Club:</label>
-                              <input type="text" value={pos.club} onChange={(e) => handleChange(e, index)} />
-                            </div>
-                          </div>
-                        ))}
                       </div>
                     </div>
 

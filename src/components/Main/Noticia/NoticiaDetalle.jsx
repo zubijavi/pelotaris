@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { db } from '../../../firebase'; // Asegúrate de importar correctamente tu configuración de Firebase
 import { doc, getDoc } from 'firebase/firestore'; // Importa las funciones necesarias de Firestore
 import './NoticiaDetalle.css';
+import novedad from "../../../assets/novedad.jpeg"
 
 const NoticiaDetalle = () => {
     const { id } = useParams(); // Obtener el id de la URL
@@ -53,46 +54,28 @@ const NoticiaDetalle = () => {
             <div className="detalle-noticia">
                 <span className="detalle-fecha">{noticia.fecha}</span>
                 <h2>{noticia.titulo}</h2> {/* Cambia 'evento' por 'titulo' según tu estructura */}
+                <p className="detalle-descripcion" dangerouslySetInnerHTML={{ __html: noticia.descripcion }} />
 
-
-
-                <p className="detalle-descripcion">{noticia.descripcion}</p>
-
-                {noticia.posiciones && Object.keys(noticia.posiciones).length > 0 &&
-                    Object.keys(noticia.posiciones).some((posicion) => {
-                        const { club } = noticia.posiciones[posicion];
-                        return club.trim() !== '';
-                    }) ? (
-                    <ul className="detalle-results">
-                        <h2>Posiciones</h2>
-                        {Object.keys(noticia.posiciones).map((posicion, index) => {
-                            const { club } = noticia.posiciones[posicion];
-                            if (club.trim() === '') {
-                                return null; // No renderizar si no hay club
-                            }
-                            return (
-                                <li key={index}>
-                                    <strong>{index + 1}°</strong> {club}
-                                </li>
-                            );
-                        })}
-                    </ul>
-
-                ) : null}
                 {/* Mostrar imagen principal */}
                 {/* Mostrar todas las imágenes */}
-                {noticia.imagenes && noticia.imagenes.length > 0 && (
-                    <div className="detalle-imagenes">
-                        {noticia.imagenes.map((imagen, index) => (
+                <div className="detalle-imagenes">
+                    {noticia.imagenes && noticia.imagenes.length > 0 ? (
+                        noticia.imagenes.map((imagen, index) => (
                             <img
                                 key={index}
                                 className="detalle-imagen"
                                 src={imagen}
                                 alt={`Imagen ${index + 1} de la noticia`}
                             />
-                        ))}
-                    </div>
-                )}
+                        ))
+                    ) : (
+                        <img
+                            className="detalle-imagen"
+                            src={novedad} // Asegúrate de definir esta variable antes
+                            alt="Imagen por defecto"
+                        />
+                    )}
+                </div>
 
             </div>
         </main>

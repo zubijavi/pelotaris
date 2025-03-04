@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import "./Article.css";
+import noticia from '../../../assets/novedad.jpeg'
 
 const Article = () => {
     const [eventos, setEventos] = useState([]);
@@ -78,14 +79,13 @@ const Article = () => {
                         eventos2025.map((evento) => (
                             <Link to={`/noticia/${evento.id}`} key={evento.id} className="card">
                                 <span className="card-date">{formatFecha(evento.fecha)}</span>
-                                <div className="image-container">
-                                    {evento.imagenes && evento.imagenes.length > 0 && (
-                                        <img
-                                            src={evento.imagenes[0]}
-                                            alt={`Imagen de ${evento.titulo}`}
-                                            className="card-image"
-                                        />
-                                    )}
+                               <div className="image-container">
+                                    <img
+                                        src={evento.imagenes && evento.imagenes.length > 0 ? evento.imagenes[0] : noticia}
+                                        alt={`Imagen de ${evento.titulo}`}
+                                        className="card-image"
+                                    />
+
                                     <h3 className="card-title">{evento.titulo}</h3>
                                 </div>
                             </Link>
@@ -110,7 +110,7 @@ const Article = () => {
                                         {evento.titulo}
                                     </option>
                                 ))}
-                        </optgroup>
+                        </optgroup> 
                     ))}
                 </select>
             </div>

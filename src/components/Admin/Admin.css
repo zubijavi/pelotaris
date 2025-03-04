@@ -1,267 +1,251 @@
 /* Admin.css */
 /* Estilo general para el panel de administración */
 
+/* Estilos generales del contenedor del admin */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Formulario de administración */
 .formAdmin {
     width: 80vw;
     display: flex;
     flex-direction: column;
     margin: 2rem;
-    /* Centrar el formulario */
     padding: 20px;
-    /* Espaciado interno */
     background-color: #f9f9f9;
-    /* Color de fondo */
     border: 1px solid #ddd;
-    /* Borde */
     border-radius: 8px;
-    /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Títulos del formulario */
 .formAdmin h1 {
     text-align: center;
-    /* Centrar el título */
+    font-size: 24px;
+    color: #333;
 }
 
 /* Estilo para las filas del formulario */
 .formulario {
     display: flex;
-    /* Flexbox para el diseño en filas */
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    /* Espacio entre las columnas */
     gap: 5vw;
     padding: 2.5vw;
-
 }
 
 /* Columna de la izquierda (Fecha, Título, Descripción) */
 .formulario .left {
     flex: 1;
-    /* Ocupa el resto del espacio */
 }
 
-/* Columna de la derecha (Posiciones) */
 /* Estilo para los campos del formulario */
 .formAdmin input[type="date"],
 .formAdmin input[type="text"],
 .formAdmin textarea {
     width: 100%;
-    /* Ancho completo */
     padding: 10px;
-    /* Espaciado interno */
     margin: 10px 0;
-    /* Espaciado superior e inferior */
     border: 1px solid #ccc;
-    /* Borde */
     border-radius: 4px;
-    /* Bordes redondeados */
+    font-size: 16px;
+    color: #555;
 }
 
-/* Estilo para el botón de guardar */
+/* Estilo para el área de imágenes */
 .botones {
     display: flex;
-    /* Flexbox para el botón y el input de archivo */
-    justify-content: space-between;
-    /* Espacio entre el botón y el input */
-    align-items: center;
-    /* Alinear verticalmente */
-}
-
-/* Estilo para el área de guardados */
-.guardados {
-    display: flex;
     flex-direction: column;
-    gap: 20px;
-    /* Espacio entre eventos */
-
-}
-
-.guardados h2 {
-    text-align: center;
-}
-
-.evento {
-    display: flex;
-    /* Usar flexbox para crear dos columnas */
-    gap: 20px;
-    /* Espacio entre columnas */
-    border: 1px solid #ccc;
-    /* Bordes para separar eventos */
-    padding: 15px;
-    /* Espaciado interno */
-    border-radius: 8px;
-    /* Bordes redondeados */
-    margin: 1rem;
-    align-items: center;
-    /* Alinea verticalmente el contenido */
-    border: red 2px dashed;
-
-}
-
-.evento-info {
-    flex: 1;
-    /* Toma todo el espacio disponible */
-}
-
-.imagenes {
-    flex: 0 0 120px;
-    /* Reduce el ancho de la columna de imágenes */
-    display: flex;
-    flex-direction: column;
-    /* Apilar imágenes verticalmente */
     gap: 10px;
-    /* Espacio entre imágenes */
-    align-items: center;
-    /* Centrar las imágenes */
+    margin-top: 20px;
 }
 
-.imagenes img {
-    max-width: 100px;
-    /* Tamaño máximo para las imágenes */
-    height: auto;
-    /* Mantener la proporción de la imagen */
+.botones input[type="file"] {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.botones button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botones button:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para las imágenes en el modal */
+.imagen-thumbnail {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.imagen-thumbnail img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
     border-radius: 5px;
-    /* Bordes redondeados para las imágenes */
 }
 
-.botones {
-    margin-top: 10px;
-    /* Espacio entre la información y los botones */
-    display: flex;
-    gap: 10px;
-    /* Espacio entre botones */
+.imagen-thumbnail button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.botones-evento {
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-end;
-    /* Alinear los botones a la derecha */
-    gap: 10px;
-    /* Espacio entre botones */
+.imagen-thumbnail button:hover {
+    background-color: red;
 }
 
-/* Modal */
+/* Estilo para el modal */
 .modal {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10000; /* Mayor que el header */
+    transition: opacity 0.3s ease;
 }
 
 .modal-content {
     background-color: white;
     padding: 20px;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 600px;
-}
-.imagenes-evento img{
-    width: 5vw;
+    width: 70%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10001; /* Asegura que el contenido esté sobre el fondo del modal */
 }
 
+.modal-content h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
 .close {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
-}
-
-.btn-agregar {
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    color: #aaa;
+    background: none;
     border: none;
-    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.btn-agregar:hover {
-    background-color: #0056b3;
-}
+.close:hover {
+    color: #333;
+}   
 
-.admin-list {
-    background: #6c6c6c;
+/* Estilo para el mensaje de carga */
+p {
+    font-size: 16px;
+    color: #333;
     text-align: center;
+}
+
+/* Estilo de la tabla */
+.evento-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.evento-table th,
+.evento-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.evento-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.evento-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.evento-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para los botones de acciones */
+.edit-btn,
+.delete-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn:hover {
+    background-color: #e53935;
+}
+
+/* Estilo de la lista de eventos */
+.admin-list {
+    margin-top: 30px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1vw;
 }
-.admin-list .evento-table {
-    width: 90%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .evento-table th, .evento-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-  }
-  
-  .evento-table th {
-    background-color: #4CAF50;
-    color: white;
-    text-transform: uppercase;
-  }
-  
-  .evento-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .evento-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .edit-btn, .delete-btn {
-    padding: 8px 12px;
-    margin: 0 5px;
-    border: none;
+
+/* Estilo general para los botones */
+button {
+    font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-  }
-  
-  .edit-btn {
-    background-color: #ffc107;
-    color: #fff;
-  }
-  
-  .delete-btn {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .edit-btn:hover {
-    background-color: #e0a800;
-  }
-  
-  .delete-btn:hover {
-    background-color: #c82333;
-  }
-  /* Ajustar la tabla en resoluciones menores a 768px */
-@media (max-width: 768px) {
-    .admin-list .evento-table {
-        width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
-        overflow-x: auto; /* Agrega desplazamiento horizontal si el contenido es más ancho que la pantalla */
-    }
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
 
-    .evento-table th, .evento-table td {
-        padding: 8px; /* Reducir el padding para que los elementos quepan mejor */
-        font-size: 12px; /* Reducir el tamaño de la fuente */
-    }
-
-    .evento-table th {
-        font-size: 14px; /* Mantener un tamaño de fuente un poco mayor para los encabezados */
-    }
-
-    .admin-list {
-        padding: 10px; /* Reducir el padding del contenedor */
-    }
+button:hover {
+    background-color: #0056b3;
 }
