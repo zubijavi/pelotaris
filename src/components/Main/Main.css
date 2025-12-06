@@ -1,7 +1,8 @@
 /* Estilos para el main usando grid */
+
 main {
   grid-area: main;
-  margin: 0 1rem;
+  /* margin: 0 1rem; */
   /* width: 100%; */
   min-height: 60vh; /* Mantén la altura mínima */
   background-color: rgba(13, 14, 15, 0.664);
@@ -11,6 +12,7 @@ main {
   align-items: start; /* Alinea los elementos al inicio verticalmente */
   box-sizing: border-box;
   transition: transform 0.3s ease-in-out;
+  /* border: red dashed 4px; */
 }
 
 /* Cambios para pantallas pequeñas */

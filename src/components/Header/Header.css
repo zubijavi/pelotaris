@@ -2,27 +2,63 @@
 .header {
   grid-area: header;
   display: flex;
+  /* flex-direction: column; */
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 1vw 1vw;
   color: rgb(250, 250, 250);
-  background-color: rgb(31, 51, 93);
-  position: fixed; /* Fija el header en la parte superior */
+  background-color: rgb(7, 52, 14);
+  position: fixed;
+  /* Fija el header en la parte superior */
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999; /* Asegura que el header esté sobre otros elementos */
-  height: 5vw;
+  z-index: 9999;
+  /* Asegura que el header esté sobre otros elementos */
+  /* height: 5vw; */
+  /* border: 2px dashed aliceblue; */
+  /* height: 8vw; */
+  border-bottom: 0.1vw solid rgba(246, 246, 246, 0.227);
+}
+.header .titulo{
+  padding: .3vw;
+}
+
+.header .titulo h1 {
+  color: white;
+  font-family: raleway;
+  font-size: 2vw;
+}
+
+.header .titulo h5 {
+  color: white;
+  font-family: raleway;
+  /* text-align: center; */
+  font-size: .9vw;
+
+}
+
+.header .titulo a {
+  text-decoration: none;
 }
 
 /* Agregar espacio para el resto del contenido */
 body {
-  padding-top: 70px; /* Ajusta según la altura de tu header */
+  padding-top: 160px;
+  /* Ajusta según la altura de tu header */
+}
+
+nav{
+  /* width: 90%; */
+  padding: .3vw;
+  
 }
 
 /* Estilos para el menú */
 .nav ul {
   display: flex;
+  justify-content: space-around;
+  /* border: wheat solid 2px; */
   list-style: none;
   margin: 0;
   padding: 0;
@@ -30,8 +66,8 @@ body {
 
 .nav ul li {
   margin: 0 10px;
-  font-size: 1.5rem;
-  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2vw;
+  font-family: raleway;
 }
 
 .nav ul li a {
@@ -70,20 +106,25 @@ body {
 
   .nav {
     width: 100%;
-    position: absolute; /* Asegura que el menú esté por encima de otros elementos */
-    margin-top: 55vw;    
+    position: absolute;
+    /* Asegura que el menú esté por encima de otros elementos */
+    margin-top: 55vw;
     left: 0;
     right: 0;
-    background-color: rgb(31, 51, 93) ;
-    z-index: 9999; /* Establece un valor alto para asegurarse de que esté por encima de otros elementos */
-    display: none;  /* El menú está oculto por defecto */
-    transform: translateY(-100%); /* El menú empieza fuera de la pantalla */
+    background-color: rgb(31, 51, 93);
+    z-index: 9999;
+    /* Establece un valor alto para asegurarse de que esté por encima de otros elementos */
+    display: none;
+    /* El menú está oculto por defecto */
+    transform: translateY(-100%);
+    /* El menú empieza fuera de la pantalla */
     transition: transform 0.3s ease-in-out;
   }
 
   .nav.open {
     display: block;
-    transform: translateY(0); /* Muestra el menú */
+    transform: translateY(0);
+    /* Muestra el menú */
   }
 
   .nav ul {

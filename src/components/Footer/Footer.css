@@ -1,20 +1,36 @@
-footer{
+footer {
   grid-area: footer;
-    width: 100%;
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease-in-out;
-    font-size: 4vw;
+  width: 100%;
+  background-color: rgb(7, 52, 14);
+  transition: transform 0.3s ease-in-out;
+  font-size: 4vw;
+  text-align: center;
+
 }
-footer p{
-  color: white;
+
+footer ul {
+
+  color: aliceblue;
+  list-style: none;
+}
+
+footer ul li a {
   font-size: 1vw;
+  color: aliceblue;
+  text-decoration: none;
+
+}
+
+footer p {
+
+  color: white;
+  font-size: 1.5vw;
+
 }
 
 @media (max-width: 768px) {
-    footer.shifted {
-      transform: translateY(230px); /* Ajusta el desplazamiento a tus necesidades */
-    }
+  footer.shifted {
+    transform: translateY(230px);
+    /* Ajusta el desplazamiento a tus necesidades */
   }
+}

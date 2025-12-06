@@ -1,5 +1,6 @@
 body{
-  background-color: rgb(31, 51, 93);  
+  background-color: rgb(7, 52, 14);
+
 }
 .app{
     display: grid;
@@ -8,8 +9,7 @@ body{
     "header header header"  /* El carrusel ocupará las dos columnas */
     "main main main"
     "footer footer footer";   
-    margin: 8px;
-    gap: 1rem;
+    /* margin: 8px; */
 
 }
 

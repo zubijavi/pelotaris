@@ -53,24 +53,24 @@ const Header = ({ toggleMenu, isMenuOpen }) => {
 
   return (
     <header className="header">
-      <Link to="/">
-        <img src={logo} alt="logo" />
-      </Link>
+      <div className='titulo'>
+        <Link to="/">
+          <h1>FEDERACION DE PALETA DE SANTA FE</h1>
+          <h5>ZONA CENTRO</h5>
+        </Link>
+      </div>
       <button className={`menu-toggle ${isMenuOpen ? 'hidden' : ''}`} onClick={toggleMenu}>
         ☰
       </button>
       <nav className={isMenuOpen ? 'nav open' : 'nav'} ref={menuRef}>
         <ul>
-          <li>
-            <Link to="/" onClick={closeMenuOnLinkClick}>
-              Inicio
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin" onClick={closeMenuOnLinkClick}>
-              Admin
-            </Link>
-          </li>
+          <li>REGLAMENTO</li>
+          <li>CALENDARIO</li>
+          
+          <li><Link to="/jugadores">JUGADORES</Link></li>
+          
+          <li>TORNEOS</li>
+          <li><a href="#footer">CONTACTO</a></li>
         </ul>
       </nav>
     </header>

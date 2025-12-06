@@ -4,7 +4,7 @@ import { db } from '../../../firebase'; // Asegúrate de importar correctamente 
 import { doc, getDoc } from 'firebase/firestore'; // Importa las funciones necesarias de Firestore
 import './NoticiaDetalle.css';
 import novedad from "../../../assets/novedad.jpeg"
-
+    
 const NoticiaDetalle = () => {
     const { id } = useParams(); // Obtener el id de la URL
     const [noticia, setNoticia] = useState(null); // Estado para almacenar la noticia

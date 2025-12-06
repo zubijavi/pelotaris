@@ -5,9 +5,15 @@ import logo from '../../assets/LogoAzul.png'
 
 const Footer = () => {
   return (
-    <footer>
-        {/* <img src={logo} alt="" /> */}
+    <footer id="footer">
         <p>Todos los derechos reservados</p>
+      <ul>
+          <li>
+            <Link to="/admin">
+              ADMIN
+            </Link>
+          </li>
+          </ul>
     </footer>
   );
 };
