@@ -1,109 +1,107 @@
-article {
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    padding: 1vw;
-    margin-bottom: 20px; /* Espacio adicional en la parte inferior */
+/* Tarjeta horizontal tipo noticia */
+h1{
+    text-align: center;
+    font-family: raleway;
+    color: #bebcbc;
 }
 .cards{
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    justify-content: space-around;
+    padding: 1vw;
     gap: 1vw;
-    /* padding: 5vw; */
-}
 
-/* Estilos de la tarjeta */
+}
 .card {
-    background-color: rgb(113, 113, 112);
+    background: #106420;
+    padding: .5vw;
     text-decoration: none;
+    width: 30%;
     height: 20vw;
-    width: 35vw;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     display: flex;
-    flex-direction: column;
+    flex-direction: column  ;
     align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding: 2vw;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     position: relative;
 }
 
-/* Contenedor de la imagen */
-.image-container {
-    width: 100%;
-    height: 90%;
-    /* overflow: hidden; */
-    border-radius: 10px;
+/* HOVER */
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.35);
 }
 
-/* Imagen dentro de la tarjeta */
+/* IZQUIERDA: fecha + título */
+.card-info {
+    /* flex: 1; */
+    padding: 1.2vw;
+    display: flex;
+    width: 100%;
+    /* flex-direction: column; */
+    justify-content: space-evenly;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+/* Fecha estilo etiqueta */
+.card-date {
+    background: #016d34; /* Verde Olé */
+    width: fit-content;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    position: static;  /* ← ya no queda sobre la foto */
+}
+
+/* Título a la izquierda */
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1.3;
+    color: #bebcbc;
+    text-align: left;
+    padding: 0;
+}
+
+/* DERECHA: imagen */
+.image-container {
+    /* width: 40%; */
+    border-radius: 2px;
+    height: 100%;
+    overflow: hidden;
+}
+
 .card-image {
     width: 100%;
     height: 100%;
-    object-fit:fill;
-    border-radius: 5px;
+    object-fit: cover;
+    transition: transform 0.25s ease;
 }
 
-/* Fecha */
-.card-date {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: white;
-    background-color: rgba(31, 51, 93, 0.8);
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 2;
-    text-transform: uppercase;
+.card:hover .card-image {
+    transform: scale(1.05);
 }
 
-/* Título */
-.card-title {
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-/* Selector de año */
-.year-selector {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    color: wheat;
-}
-
-.year-selector label {
-    margin-right: 10px;
-}
-
-.year-selector select {
-    padding: 5px;
-    font-size: 16px;
-}
-
-/* Media Query para pantallas pequeñas */
+/* MOBILE: imagen arriba, texto abajo */
 @media (max-width: 768px) {
-    article {
-        justify-content: center;
-    }
-
     .card {
-        width: 90%;
+        flex-direction: column;
         height: auto;
-        padding: 15px;
     }
 
     .image-container {
-        height: 200px;
+        width: 100%;
+        height: 55vw;
     }
 
     .card-title {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 }

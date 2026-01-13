@@ -7,6 +7,7 @@ import Admin from './components/Admin/Admin';
 import NoticiaDetalle from './components/Main/Noticia/NoticiaDetalle';
 import Jugadores from './components/Main/Jugadores/Jugadores';
 import './App.css';
+import Torneos from './components/Main/Torneos/Torneos';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,6 +24,8 @@ const App = () => {
           <Route path="*" element={<Main isShifted={isMenuOpen} />} />
           <Route path="/admin" element={<Admin isShifted={isMenuOpen} />} />
           <Route path="/jugadores" element={<Jugadores isShifted={isMenuOpen} />} />
+          <Route path="/torneos" element={<Torneos isShifted={isMenuOpen} />} />
+
           <Route path='/noticia/:id' element={<NoticiaDetalle isShifted={isMenuOpen} />} />
           <Route path="*" element={<h1>404 - Página no encontrada</h1>} /> {/* Agrega esto */}
         </Routes>

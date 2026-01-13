@@ -68,8 +68,7 @@ const Header = ({ toggleMenu, isMenuOpen }) => {
           <li>CALENDARIO</li>
           
           <li><Link to="/jugadores">JUGADORES</Link></li>
-          
-          <li>TORNEOS</li>
+          <li><Link to="/torneos">TORNEOS</Link></li>
           <li><a href="#footer">CONTACTO</a></li>
         </ul>
       </nav>

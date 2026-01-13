@@ -2,14 +2,12 @@
 
 main {
   grid-area: main;
+  display: flex;
   /* margin: 0 1rem; */
-  /* width: 100%; */
-  min-height: 60vh; /* Mantén la altura mínima */
-  background-color: rgba(13, 14, 15, 0.664);
-  border-radius: 8px;
+  /* width: 90%; */
+  /* background-color: rgba(13, 14, 15, 0.664); */
+  /* border-radius: 4px; */
   gap: 1rem; /* Espacio entre las columnas y filas */
-  justify-items: center; /* Centra los elementos en el grid horizontalmente */
-  align-items: start; /* Alinea los elementos al inicio verticalmente */
   box-sizing: border-box;
   transition: transform 0.3s ease-in-out;
   /* border: red dashed 4px; */

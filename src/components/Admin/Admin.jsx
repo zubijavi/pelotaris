@@ -19,6 +19,7 @@ const Admin = () => {
     titulo: "",
     fecha: "",
     descripcion: "",
+    tipo: "anuncio", // 🔥 nuevo campo
     imagenes: [],
   });
 
@@ -76,6 +77,7 @@ const Admin = () => {
       titulo: nuevoEvento.titulo,
       fecha: nuevoEvento.fecha,
       descripcion: nuevoEvento.descripcion,
+      tipo: nuevoEvento.tipo, // 🔥 agregamos el tipo
       imagenes: imagenesUrls,
     });
 
@@ -83,6 +85,7 @@ const Admin = () => {
       titulo: "",
       fecha: "",
       descripcion: "",
+      tipo: "anuncio",
       imagenes: [],
     });
 
@@ -105,6 +108,7 @@ const Admin = () => {
       titulo: nuevoEvento.titulo,
       fecha: nuevoEvento.fecha,
       descripcion: nuevoEvento.descripcion,
+      tipo: nuevoEvento.tipo, // 🔥 también en edición
       imagenes: imagenesUrls.length > 0 ? imagenesUrls : undefined,
     });
 
@@ -114,6 +118,7 @@ const Admin = () => {
       titulo: "",
       fecha: "",
       descripcion: "",
+      tipo: "anuncio",
       imagenes: [],
     });
 
@@ -187,13 +192,24 @@ const Admin = () => {
           />
 
           <textarea
-            placeholder="Descripcion"
+            placeholder="Descripción"
             value={nuevoEvento.descripcion}
             onChange={(e) =>
               setNuevoEvento({ ...nuevoEvento, descripcion: e.target.value })
             }
             required
           ></textarea>
+
+          {/* 🔥 Select de tipo de evento */}
+          <select
+            value={nuevoEvento.tipo}
+            onChange={(e) =>
+              setNuevoEvento({ ...nuevoEvento, tipo: e.target.value })
+            }
+          >
+            <option value="anuncio">Anuncio</option>
+            <option value="torneo">Torneo</option>
+          </select>
 
           <input
             type="file"
@@ -214,7 +230,8 @@ const Admin = () => {
         <ul>
           {eventos.map((ev) => (
             <li key={ev.id}>
-              <strong>{ev.titulo}</strong> - {ev.fecha}
+              <strong>{ev.titulo}</strong> - {ev.fecha}  
+              <small>({ev.tipo})</small> {/* 🔥 muestra el tipo */}
               <button
                 onClick={() => {
                   setEditEventoId(ev.id);
@@ -222,6 +239,7 @@ const Admin = () => {
                     titulo: ev.titulo,
                     fecha: ev.fecha,
                     descripcion: ev.descripcion,
+                    tipo: ev.tipo,
                     imagenes: [],
                   });
                 }}
